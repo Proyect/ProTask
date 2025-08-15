@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  # Servicio de la Base de Datos PostgreSQL
+  database:
+    image: postgres:14
+    container_name: protask_db
+    restart: always
+    environment:
+      - POSTGRES_USER=ariel
+      - POSTGRES_PASSWORD=tu_contraseña_segura
+      - POSTGRES_DB=protask_dev
+    ports:
+      - '5432:5432'
+    volumes:
+      - protask-db-data:/var/lib/postgresql/data
+
+  # Servicio del Back-End
+  backend:
+    build: ./backend
+    container_name: protask_backend
+    restart: always
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - database
+
+  # Servicio del Front-End
+  frontend:
+    build: ./frontend
+    container_name: protask_frontend
+    restart: always
+    ports:
+      - '5173:5173'
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+volumes:
+  protask-db-data:
