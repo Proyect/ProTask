@@ -2,3 +2,24 @@
 
 /backend/node_modules
 /frontend/node_modules
+
+# Dependencias
+node_modules/
+
+# Archivos de build y producción
+dist/
+build/
+
+# Archivos de Log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos de entorno
+# NUNCA subir el archivo .env con los secretos
+.env
+.env*.local
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
